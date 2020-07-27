@@ -4,10 +4,11 @@ public class FrequencyBand {
 	
 	private int frequency;
 
-    public FrequencyBand() {
+    public FrequencyBand(int frequency) {
+    	this.frequency=frequency;
     }
 
-    public long getFrequency() {
+	public long getFrequency() {
         return frequency;
     }
 

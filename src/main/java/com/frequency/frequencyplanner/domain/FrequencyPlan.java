@@ -13,8 +13,6 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 @PlanningSolution
 public class FrequencyPlan {
 
-
-
     @PlanningEntityCollectionProperty
     private List<Transmitter> transmitters;
     
@@ -55,6 +53,19 @@ public class FrequencyPlan {
 
     public void setScore(HardSoftScore score) {
         this.score = score;
+    }
+    
+    public String getSolution() {
+    	String solution ="";
+    	for(int i=0;i<transmitters.size();i++)
+    	{
+    		solution+=(transmitters.get(i).getName()
+    				+"(n:"+transmitters.get(i).getFirstNeighbour()+")"
+    				+" ---> "
+    				+transmitters.get(i).getFrequency().getFrequency()
+    				+"\n");
+    	}
+    	return solution;
     }
 
 }
