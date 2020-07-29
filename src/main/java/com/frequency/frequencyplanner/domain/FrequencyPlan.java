@@ -13,59 +13,74 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 @PlanningSolution
 public class FrequencyPlan {
 
-    @PlanningEntityCollectionProperty
-    private List<Transmitter> transmitters;
-    
+	@PlanningEntityCollectionProperty
+	private List<Transmitter> transmitters;
+
 	@ProblemFactCollectionProperty
-	 @ValueRangeProvider(id = "frequency")
-   private List<FrequencyBand> frequencies;
-	
-    @PlanningScore
-    private HardSoftScore score;
+	@ValueRangeProvider(id = "frequency")
+	private List<FrequencyBand> frequencies;
 
-    public FrequencyPlan() {
-    }
+	@PlanningScore
+	private HardSoftScore score;
 
-	public FrequencyPlan(List<FrequencyBand> frequencies, List<Transmitter> transmitters) {
-        this.frequencies = frequencies;
-        this.transmitters = transmitters;
-    }
+	@ProblemFactCollectionProperty
+	private List<Site> sites;
 
-    public List<FrequencyBand> getFrequencies() {
-        return frequencies;
-    }
+	public FrequencyPlan() {
+	}
 
-    public void setFrequenceis(List<FrequencyBand> frequencies) {
-        this.frequencies = frequencies;
-    }
+	public FrequencyPlan(List<FrequencyBand> frequencies, List<Transmitter> transmitters, List<Site> sites) {
+		this.frequencies = frequencies;
+		this.transmitters = transmitters;
+		this.sites = sites;
+	}
 
-    public List<Transmitter> getTransmitters() {
-        return transmitters;
-    }
+	public List<FrequencyBand> getFrequencies() {
+		return frequencies;
+	}
 
-    public void setTransmitters(List<Transmitter> transmitters) {
-        this.transmitters = transmitters;
-    }
+	public void setFrequenceis(List<FrequencyBand> frequencies) {
+		this.frequencies = frequencies;
+	}
 
-    public HardSoftScore getScore() {
-        return score;
-    }
+	public List<Transmitter> getTransmitters() {
+		return transmitters;
+	}
 
-    public void setScore(HardSoftScore score) {
-        this.score = score;
-    }
-    
-    public String getSolution() {
-    	String solution ="";
-    	for(int i=0;i<transmitters.size();i++)
-    	{
-    		solution+=(transmitters.get(i).getName()
-    				+"(n:"+transmitters.get(i).getFirstNeighbour()+")"
-    				+" ---> "
-    				+transmitters.get(i).getFrequency().getFrequency()
-    				+"\n");
-    	}
-    	return solution;
-    }
+	public void setTransmitters(List<Transmitter> transmitters) {
+		this.transmitters = transmitters;
+	}
+
+	public HardSoftScore getScore() {
+		return score;
+	}
+
+	public void setScore(HardSoftScore score) {
+		this.score = score;
+	}
+
+	public List<Site> getSite() {
+		return sites;
+	}
+
+	public String getSolution() {
+		String solution = "";
+		for (int i = 0; i < sites.size(); i++) {
+			solution+="\nSite: "+sites.get(i).getId()+"\n";
+			for(int j=0;j<sites.get(i).getTransmittersId().size();j++)
+			{
+				solution+="Tx"
+						+transmitters.get(sites.get(i).getTransmittersId().get(j)).getId()
+						+" --->"
+						+transmitters.get(sites.get(i).getTransmittersId().get(j)).getFrequency().getFrequency()
+						+"\n";
+				if(j==sites.get(i).getTransmittersId().size()-1) {
+					solution+="	Neighbours:\n";
+					solution+=transmitters.get(sites.get(i).getTransmittersId().get(0)).toStringNeighbours();
+				}
+			}
+		}
+		return solution;
+	}
 
 }

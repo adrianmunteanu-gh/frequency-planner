@@ -8,7 +8,7 @@ public class FrequencyBand {
     	this.frequency=frequency;
     }
 
-	public long getFrequency() {
+	public int getFrequency() {
         return frequency;
     }
 

@@ -28,10 +28,19 @@ global HardSoftScoreHolder scoreHolder;
 // Hard constraints
 // ############################################################################
 
+rule "coSite"
+	  when 
+      $transmitter:Transmitter(frequency!=null, $frequency : frequency.getFrequency())
+      Transmitter(id!=$transmitter.getId() && frequency!=null && site == $transmitter.getSite() && Math.abs(frequency.getFrequency()-$frequency)<2)
+      
+  then
+       scoreHolder.addHardConstraintMatch(kcontext, -1000);
+      end
+
 rule "neighbour with the same frequency"
   when 
-      $transmitter:Transmitter()
-      $neighbour:Transmitter(id== $transmitter.getFirstNeighbour() && frequency==$transmitter.getFrequency())
+      $transmitter:Transmitter(frequency!=null, $frequency : frequency.getFrequency() , $neighbours : neighbours)
+      Transmitter(frequency!=null && frequency.getFrequency() == $frequency) from $neighbours
       
   then
        scoreHolder.addHardConstraintMatch(kcontext, -1);
