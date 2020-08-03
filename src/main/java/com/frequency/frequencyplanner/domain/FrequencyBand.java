@@ -47,7 +47,8 @@ public class FrequencyBand {
     				-fr.getFrequency().get((i+fr.getMAIO())%fr.getFrequency().size()))<diff)
     			return true;
     		i++;
-    	}while(a==frequency.get(i) && fr.getFrequency().get(i)==b);
+    	}while(a!=frequency.get((i+MAIO)%frequency.size()) 
+    			&& b!=fr.getFrequency().get((i+fr.getMAIO())%fr.getFrequency().size()));
     	return false;
     }
 
