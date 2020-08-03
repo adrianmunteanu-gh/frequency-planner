@@ -70,7 +70,7 @@ public class Transmitter {
 		for(int i=0;i<neighbours.size();i++)
 		{
 			display+="	Tx"+ neighbours.get(i).getId()+" ---> "
-					+neighbours.get(i).getFrequency().getFrequency()
+					+neighbours.get(i).getFrequency().toString()
 					+"\n";
 		}
 		return display;

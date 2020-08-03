@@ -72,7 +72,7 @@ public class FrequencyPlan {
 				solution+="Tx"
 						+transmitters.get(sites.get(i).getTransmittersId().get(j)).getId()
 						+" --->"
-						+transmitters.get(sites.get(i).getTransmittersId().get(j)).getFrequency().getFrequency()
+						+transmitters.get(sites.get(i).getTransmittersId().get(j)).getFrequency().toString()
 						+"\n";
 				if(j==sites.get(i).getTransmittersId().size()-1) {
 					solution+="	Neighbours:\n";
